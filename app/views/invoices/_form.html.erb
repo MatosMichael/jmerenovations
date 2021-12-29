@@ -13,7 +13,8 @@
 
   <div>
     <%= form.label :client_id, style: "display: block" %>
-    <%= form.text_field :client_id %>
+    <%= form.collection_select :client_id, Client.all, :id, :name %>
+    <%= link_to "Add New Client", new_client_path %>
   </div>
 
   <div>
@@ -22,8 +23,9 @@
   </div>
 
   <div>
-    <%= form.label :address_id, style: "display: block" %>
-    <%= form.text_field :address_id %>
+    <%= form.label :jobsite, style: "display: block" %>
+    <%= form.collection_select :jobsite, Address.all, :id, :formatted %>
+    <%= link_to "Add New Address", new_address_path %>
   </div>
 
   <div>

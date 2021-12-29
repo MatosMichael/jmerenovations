@@ -34,6 +34,7 @@
   <div>
     <%= form.label :address_id, style: "display: block" %>
     <%= form.collection_select :address_id, Address.all, :id, :formatted %>
+    <%= link_to "Add New Address", new_address_path %>
   </div>
 
   <div>

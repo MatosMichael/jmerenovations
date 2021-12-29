@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_222550) do
+ActiveRecord::Schema.define(version: 2021_12_28_224058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,18 @@ ActiveRecord::Schema.define(version: 2021_12_28_222550) do
     t.index ["address_id"], name: "index_clients_on_address_id"
   end
 
+  create_table "invoices", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.date "deadline"
+    t.bigint "address_id", null: false
+    t.bigint "line_item_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["address_id"], name: "index_invoices_on_address_id"
+    t.index ["client_id"], name: "index_invoices_on_client_id"
+    t.index ["line_item_id"], name: "index_invoices_on_line_item_id"
+  end
+
   create_table "line_items", force: :cascade do |t|
     t.decimal "price", precision: 8, scale: 2
     t.string "description"
@@ -44,4 +56,7 @@ ActiveRecord::Schema.define(version: 2021_12_28_222550) do
   end
 
   add_foreign_key "clients", "addresses"
+  add_foreign_key "invoices", "addresses"
+  add_foreign_key "invoices", "clients"
+  add_foreign_key "invoices", "line_items"
 end
