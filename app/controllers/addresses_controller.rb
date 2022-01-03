@@ -24,7 +24,8 @@ class AddressesController < ApplicationController
     @address = Address.new(address_params)
 
     if @address.save
-      redirect_to @address, notice: "Address was successfully created."
+      redirect_path = params[:redirect_path].empty? ? @client : params[:redirect_path]
+      redirect_to redirect_path, notice: "Address was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
