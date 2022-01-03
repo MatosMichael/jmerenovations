@@ -24,7 +24,8 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save
-      redirect_to @client, notice: "Client was successfully created."
+      redirect_path = params[:redirect_path].empty? ? @client : params[:redirect_path]
+      redirect_to redirect_path, notice: "Client was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
